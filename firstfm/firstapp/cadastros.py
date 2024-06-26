@@ -25,6 +25,9 @@ class CadastroAlbums:
         a.artista = artista
         a.genero = genero
         a.save()
+    
+    def obter_ultimos_albuns(quantidade):
+        return Album.objects.order_by("-id")[:quantidade]
 
 class CadastroMusicas:
 
