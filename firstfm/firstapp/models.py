@@ -9,6 +9,6 @@ class Album(models.Model):
 class Musica(models.Model):
     titulo = models.CharField(max_length=200, null=False)
     compositor = models.TextField()
-    duracao = models.SmallIntegerField() #small = poucos bits armazenados
-    album = models.ForeignKey(Album, on_delete=models.CASCADE) #caso apague um album, todas as musicas serão apagadas
+    duracao = models.SmallIntegerField()
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
 
