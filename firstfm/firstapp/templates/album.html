@@ -63,6 +63,15 @@
                     <p><strong>Gênero:</strong> {{ album.genero }}</p>
                 </div>
             
+            <div>
+                <h2>Músicas</h2>
+                <ul>
+                    {%for musica in album.musica_set.all%}
+                    <li>{{ musica.titulo }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
         </div>
     </div>
 </body>

@@ -1,12 +1,13 @@
-from firstapp.models import Album, Musica
+from firstapp.models import Album, Musica, Cantor, avaliacao_musica
 
 class CadastroAlbums:
 
-    def criar(titulo, artista, genero):
+    def criar(titulo, artista_id, genero, ano_lancamento):
         a = Album()
         a.titulo = titulo
-        a.artista = artista
+        a.artista = CadastroCantor.obter(artista_id)
         a.genero = genero
+        a.ano_lancamento = ano_lancamento
         a.save()
         return a
     
@@ -57,3 +58,46 @@ class CadastroMusicas:
         m.album = CadastroAlbums.obter(album_id)
         m.save()
         return m
+    
+    def obter_ultimas_musicas(quantidade):
+        return Musica.objects.order_by("-id")[:quantidade]
+
+class CadastroCantor:
+    def criar (nome):
+        c = Cantor()
+        c.nome = nome
+        c.save()
+    
+    def obter(id):
+        return Cantor.objects.filter(id=id).first()
+    
+    def excluir(id):
+        c = CadastroCantor.obter(id)
+        c.delete()
+
+    def atualizar(id, nome):
+        c = CadastroCantor.obter(id)
+        if c is None:
+            raise ValueError('Cantor não existe: id= ',id)
+        c.nome = nome
+        c.save()
+        return c
+
+    def obter_ultimos_cantores(quantidade):
+        return Cantor.objects.order_by("-id")[:quantidade]
+    
+class CadastroAvaliacaoMusica:
+    def criar (username, musica_id, nota):
+        ava = avaliacao_musica()
+        ava.username = username
+        ava.musica = CadastroMusicas.obter(musica_id)
+        ava.nota = nota
+        ava.save()
+        return ava
+    
+    def obter(id):
+        return avaliacao_musica.objects.filter(id=id).first()
+    
+    def obter_avaliacoes_usuario(username):
+        return avaliacao_musica.objects.filter(username=username).all()
+    

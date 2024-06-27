@@ -1,10 +1,29 @@
 <html>
     <body>
         <p>It works</p>
-        <ul>
-        {% for album in albuns %}
-        <li><a href= "{% url 'firstapp:album_detail' album.id %}">{{album.titulo}}</a></li>
-        {% endfor %}
-        </ul>
+        <h3>Meus Artistas</h3>
+            <ul class="artists-list">
+                {% for cantor in cantores %}
+                <li><a href="{% url 'firstapp:album_detail' cantor.id %}">{{ cantor.nome }}</a></li>
+                {% endfor %}
+            </ul>
+            <h3>Meus Álbuns</h3>
+            <ul class="album-list">
+                {% for album in albuns %}
+                <li><a href="{% url 'firstapp:album_detail' album.id %}">{{ album.titulo }}</a></li>
+                {% endfor %}
+            </ul>
+            <h3>Minhas Músicas</h3>
+            <ul class="music-list">
+                {% for musica in musicas %}
+                <li><a href="{% url 'firstapp:album_detail' musica.id %}">{{ musica.titulo }}</a>
+                    <span id="text">Avaliação:</span><span class="star" data-value="1">&#9733;</span>
+                    <span class="star" data-value="2">&#9733;</span>
+                    <span class="star" data-value="3">&#9733;</span>
+                    <span class="star" data-value="4">&#9733;</span>
+                    <span class="star" data-value="5">&#9733;</span>
+                </li>
+                {% endfor %}
+            </ul>
     </body>
 </html>
